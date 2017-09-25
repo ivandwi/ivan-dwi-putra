@@ -4,13 +4,13 @@
 	CLO		; Close unwanted windows.
 	MOV 	BL, C0
 	MOV	DL, BF
-Rep:
+Repeat:
 	IN	00	; Wait for key press - Store it in AL.
 	PUSH AL
 	CMP	AL,0D	; Was it the Enter key? (ASCII 0D)
 
-JNZ Rep
-LOOP:
+JNZ Repeat
+Rep:
 	MOV	AL,[DL]
 	MOV	[BL], AL
 	INC BL
@@ -22,7 +22,7 @@ LOOP:
 	MOV	AL,[DL]
 	MOV	[BL], AL
 	CMP	AL,0D
-JNZ LOOP	
+JNZ Rep	
 END
 ; --------------------------------------------------------------
 TASK
