@@ -2,20 +2,40 @@
 ;  Input key presses from the keyboard until Enter is pressed.
 ; --------------------------------------------------------------
 	CLO		; Close unwanted windows.
-Repeat:
+	MOV 	BL, C0
+	MOV	DL, BF
+Rep:
 	IN	00	; Wait for key press - Store it in AL.
-	PUSH	AL
+	PUSH AL
 	CMP	AL,0D	; Was it the Enter key? (ASCII 0D)
-	POP	AL
-	MOV	[C0],AL	; Copy address C0 to the AL register.
-	IN	00
-	POP	AL
-	IN	00
-	POP	AL
-	MOV	[C1],AL
-	MOV	[C2],AL
-	MOV	[C3],AL
-	JNZ	Repeat	; No - jump back.  Yes - end.
 
+JNZ Rep
+LOOP:
+	MOV	AL,[DL]
+	MOV	[BL], AL
+	INC BL
+	DEC DL
+	MOV	AL,[DL]
+	MOV	[BL], AL
+	INC BL
+	DEC DL
+	MOV	AL,[DL]
+	MOV	[BL], AL
+	CMP	AL,0D
+JNZ LOOP	
 END
 ; --------------------------------------------------------------
+TASK
+
+11)	Easy!  Display each character at the top left position of the 
+	VDU by copying them all to address [C0].
+
+12)	Harder  Use BL to point to address [C0] and increment BL after 
+	each key press in order to see the text as you type it.
+
+13)	Harder!  Store all the text you type in RAM when you type it in.  
+	When you press Enter, display the stored text on the VDU display.
+
+14)	Difficult  Type in text and store it.  When Enter is pressed, 
+	display it on the VDU screen in reverse order.  Using the stack 
+	makes this task easier.
