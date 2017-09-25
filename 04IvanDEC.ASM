@@ -1,7 +1,7 @@
 ; ===== Counting ===================================
 
 
-	MOV	BL,5	; Copy a 5 as Initial value stored in BL
+	MOV	BL,40	; Copy a 5 as Initial value stored in BL
 
 Repeat:			; Jump back to this label
 	DEC	BL	; Decrement to the BL register
